@@ -20,6 +20,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font heightFont;
 	Font HPFont;
 	Timer frameDraw;
+	character character = new character(250, 600, 50, 50);
 
 	GamePanel() {
 		titleFont = new Font("Arial", Font.PLAIN, 48);
@@ -71,11 +72,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setFont(heightFont);
 		g.setColor(Color.WHITE);
 		g.drawString("HEIGHT ____", 350, 50);
+		// HP block
+		g.setColor(Color.GREEN);
+		g.fillRect(15, 35, 150, 20);
 		// HP text
 		g.setFont(heightFont);
 		g.setColor(Color.WHITE);
 		g.drawString("HP", 75, 50);
-
+		// character draw
+		character.draw(g);
 	}
 
 	@Override
@@ -94,7 +99,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (currentState == GAME) {
 			updateGameState();
 		}
-		System.out.println("action");
 		repaint();
 
 	}
@@ -117,15 +121,21 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (currentState == GAME) {
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
 				System.out.println("UP");
-			}
-			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				System.out.println("DOWN");
+				character.jump();
 			}
 			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 				System.out.println("LEFT");
+				character.left();
+				if(character.x<0) {
+					currentState=MENU;
+				}
 			}
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 				System.out.println("RIGHT");
+				character.right();
+				if(character.x>450) {
+					currentState=MENU;
+				}
 			}
 		}
 
