@@ -1,8 +1,9 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class walkingEnemy extends gameObject{
-	walkingEnemy(int X, int Y, int Width1, int Height1) {
+public class sword extends gameObject{
+
+	sword(int X, int Y, int Width1, int Height1) {
 		super(X, Y, Width1, Height1);
 		speed=10;
 	}
@@ -11,6 +12,7 @@ public class walkingEnemy extends gameObject{
         g.fillRect(x, y, width, height);
 	}
 	public void update() {
-		//walking back and fourth on platforms
+		y-=speed;
 	}
+
 }

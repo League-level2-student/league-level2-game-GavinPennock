@@ -20,7 +20,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font heightFont;
 	Font HPFont;
 	Timer frameDraw;
+	Timer platformSpawn;
 	character character = new character(250, 600, 50, 50);
+	objectManager objectmanager = new objectManager(character);
 
 	GamePanel() {
 		titleFont = new Font("Arial", Font.PLAIN, 48);
@@ -37,8 +39,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-	public void updateGameState() {
+	public void startGame() {
+		platformSpawn = new Timer(2000, objectmanager);
+		platformSpawn.start();
+	}
 
+	public void updateGameState() {
+		objectmanager.update();
 	}
 
 	public void drawMenuState(Graphics g) {
@@ -80,7 +87,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.WHITE);
 		g.drawString("HP", 75, 50);
 		// character draw
-		character.draw(g);
+		objectmanager.draw(g);
 	}
 
 	@Override
@@ -114,8 +121,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState == MENU) {
 				currentState = GAME;
+				startGame();
 			} else if (currentState == GAME) {
 				currentState = MENU;
+				platformSpawn.stop();
 			}
 		}
 		if (currentState == GAME) {
@@ -126,15 +135,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 				System.out.println("LEFT");
 				character.left();
-				if(character.x<0) {
-					currentState=MENU;
+				if (character.x < 0) {
+					currentState = MENU;
 				}
 			}
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 				System.out.println("RIGHT");
 				character.right();
-				if(character.x>450) {
-					currentState=MENU;
+				if (character.x > 450) {
+					currentState = MENU;
 				}
 			}
 		}
