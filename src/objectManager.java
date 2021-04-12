@@ -13,7 +13,7 @@ public class objectManager implements ActionListener{
 		character = character1;
 	}
 	public void addPlatform() {
-		platforms.add(new platform(random.nextInt(SkyJump.WIDTH),0,50,50));
+		platforms.add(new platform(random.nextInt(SkyJump.WIDTH-100),0,50,50));
 	}
 	public void update() {
 		for (int i = 0; i < platforms.size(); i++) {

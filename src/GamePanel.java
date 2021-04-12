@@ -45,6 +45,30 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void updateGameState() {
+		if (character.isJumping == true) {
+			if(character.height==70&&!character.isFalling) {
+				character.isFalling=true;
+			}
+			if (character.height >= character.defaultHeight&&!character.isFalling) {
+				character.isFalling=false;
+				character.height++;
+				character.width++;
+				character.y-=2;
+				System.out.println(character.height+" "+character.width+" "+character.y);
+			}
+			
+			else if(character.height!=character.defaultHeight) {
+				character.isFalling=true;
+				character.height--;
+				character.width--;
+				character.y+=2;
+				System.out.println(character.height+" "+character.width+" "+character.y);
+			}else{
+				character.isFalling=false;
+				character.isJumping=false;
+			}
+
+		}
 		objectmanager.update();
 	}
 
@@ -106,6 +130,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (currentState == GAME) {
 			updateGameState();
 		}
+		
+		
 		repaint();
 
 	}
@@ -128,7 +154,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 		if (currentState == GAME) {
-			if (e.getKeyCode() == KeyEvent.VK_UP) {
+			if (e.getKeyCode() == KeyEvent.VK_UP && !character.isJumping) {
 				System.out.println("UP");
 				character.jump();
 			}

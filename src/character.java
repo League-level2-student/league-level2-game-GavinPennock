@@ -5,7 +5,10 @@ import javax.swing.Timer;
 
 public class character extends gameObject {
 	Timer characterJump;
-
+	boolean isJumping=false;
+	boolean isFalling=false;
+	int defaultHeight=50;
+	int defaultwidth=50;
 	character(int X, int Y, int Width1, int Height1) {
 		super(X, Y, Width1, Height1);
 		speed = 10;
@@ -25,12 +28,7 @@ public class character extends gameObject {
 	}
 
 	public void jump() {
-		for (int i = 0; i < 13; i++) {
-			y -= speed;
-		}
-		System.out.println("jumped");
-		for (int i = 0; i < 13; i++) {
-			y += speed;
-		}
+		isJumping=true;
+		
 	}
 }

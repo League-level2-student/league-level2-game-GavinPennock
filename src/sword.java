@@ -5,7 +5,7 @@ public class sword extends gameObject{
 
 	sword(int X, int Y, int Width1, int Height1) {
 		super(X, Y, Width1, Height1);
-		speed=10;
+		speed=50;
 	}
 	public void draw(Graphics g) {
 		g.setColor(Color.RED);
