@@ -15,22 +15,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int currentState = MENU;
 	Font titleFont;
 	Font playFont;
-	Font swordFont;
-	Font characterFont;
 	Font heightFont;
-	Font HPFont;
 	Timer frameDraw;
 	Timer platformSpawn;
-	character character = new character(250, 600, 50, 50);
+	character character = new character(250, SkyJump.HEIGHT/2, 50, 50);
 	objectManager objectmanager = new objectManager(character);
 
 	GamePanel() {
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		playFont = new Font("Arial", Font.PLAIN, 12);
-		swordFont = new Font("Arial", Font.PLAIN, 24);
-		characterFont = new Font("Arial", Font.PLAIN, 24);
 		heightFont = new Font("Arial", Font.PLAIN, 16);
-		HPFont = new Font("Arial", Font.PLAIN, 16);
 		frameDraw = new Timer(1000 / 60, this);
 		frameDraw.start();
 	}
@@ -54,6 +48,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				character.height++;
 				character.width++;
 				character.y-=2;
+				character.Z++;
 				System.out.println(character.height+" "+character.width+" "+character.y);
 			}
 			
@@ -61,6 +56,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				character.isFalling=true;
 				character.height--;
 				character.width--;
+				character.Z--;
 				character.y+=2;
 				System.out.println(character.height+" "+character.width+" "+character.y);
 			}else{
@@ -70,6 +66,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		}
 		objectmanager.update();
+		if(character.Z<-2) {
+			currentState=MENU;
+		}
 	}
 
 	public void drawMenuState(Graphics g) {
@@ -85,15 +84,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setFont(playFont);
 		g.setColor(Color.BLUE);
 		g.drawString("press enter to play", 200, 375);
-		// sword text
-		g.setFont(swordFont);
-		g.setColor(Color.YELLOW);
-		g.drawString("sword select", 50, 650);
-		// character text
-		g.setFont(characterFont);
-		g.setColor(Color.YELLOW);
-		g.drawString("character select", 285, 650);
-
 	}
 
 	public void drawGameState(Graphics g) {
@@ -103,13 +93,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setFont(heightFont);
 		g.setColor(Color.WHITE);
 		g.drawString("HEIGHT ____", 350, 50);
-		// HP block
-		g.setColor(Color.GREEN);
-		g.fillRect(15, 35, 150, 20);
-		// HP text
-		g.setFont(heightFont);
-		g.setColor(Color.WHITE);
-		g.drawString("HP", 75, 50);
 		// character draw
 		objectmanager.draw(g);
 	}
@@ -157,6 +140,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			if (e.getKeyCode() == KeyEvent.VK_UP && !character.isJumping) {
 				System.out.println("UP");
 				character.jump();
+				character.isColliding=false;
 			}
 			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 				System.out.println("LEFT");

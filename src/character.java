@@ -1,14 +1,17 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import javax.swing.Timer;
 
 public class character extends gameObject {
 	Timer characterJump;
-	boolean isJumping=false;
-	boolean isFalling=false;
-	int defaultHeight=50;
-	int defaultwidth=50;
+	boolean isJumping = false;
+	boolean isFalling = false;
+	int defaultHeight = 50;
+	int defaultwidth = 50;
+	int Z = 0;
+
 	character(int X, int Y, int Width1, int Height1) {
 		super(X, Y, Width1, Height1);
 		speed = 10;
@@ -28,7 +31,16 @@ public class character extends gameObject {
 	}
 
 	public void jump() {
-		isJumping=true;
+		isJumping = true;
 		
+
 	}
+
+	@Override
+	public void update() {
+		if(!isColliding&&isJumping==false) {
+		Z--;
+		}
+	}
+
 }
