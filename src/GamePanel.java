@@ -18,7 +18,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font heightFont;
 	Timer frameDraw;
 	Timer platformSpawn;
-	character character = new character(250, SkyJump.HEIGHT/2, 50, 50);
+	character character = new character(250, SkyJump.HEIGHT / 2, 50, 50);
 	objectManager objectmanager = new objectManager(character);
 
 	GamePanel() {
@@ -39,36 +39,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void updateGameState() {
-		if (character.isJumping == true) {
-			if(character.height==70&&!character.isFalling) {
-				character.isFalling=true;
-			}
-			if (character.height >= character.defaultHeight&&!character.isFalling) {
-				character.isFalling=false;
-				character.height++;
-				character.width++;
-				character.y-=2;
-				character.Z++;
-				System.out.println(character.height+" "+character.width+" "+character.y);
-			}
-			
-			else if(character.height!=character.defaultHeight) {
-				character.isFalling=true;
-				character.height--;
-				character.width--;
-				character.Z--;
-				character.y+=2;
-				System.out.println(character.height+" "+character.width+" "+character.y);
-			}else{
-				character.isFalling=false;
-				character.isJumping=false;
-			}
-
-		}
 		objectmanager.update();
-		if(character.Z<-2) {
-			currentState=MENU;
-		}
 	}
 
 	public void drawMenuState(Graphics g) {
@@ -89,12 +60,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void drawGameState(Graphics g) {
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, SkyJump.WIDTH, SkyJump.HEIGHT);
+		objectmanager.draw(g);
 		// height text
 		g.setFont(heightFont);
 		g.setColor(Color.WHITE);
 		g.drawString("HEIGHT ____", 350, 50);
 		// character draw
-		objectmanager.draw(g);
+
 	}
 
 	@Override
@@ -113,8 +85,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (currentState == GAME) {
 			updateGameState();
 		}
-		
-		
+
 		repaint();
 
 	}
@@ -137,21 +108,21 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 		if (currentState == GAME) {
-			if (e.getKeyCode() == KeyEvent.VK_UP && !character.isJumping) {
+			if (e.getKeyCode() == KeyEvent.VK_UP && !character.isJumping&&!character.isFalling) {
 				System.out.println("UP");
-				character.jump();
-				character.isColliding=false;
+				character.isColliding = false;
+				character.isJumping=true;
 			}
 			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 				System.out.println("LEFT");
-				character.left();
+				character.Left = true;
 				if (character.x < 0) {
 					currentState = MENU;
 				}
 			}
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 				System.out.println("RIGHT");
-				character.right();
+				character.Right = true;
 				if (character.x > 450) {
 					currentState = MENU;
 				}
@@ -162,7 +133,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+			character.Left = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			character.Right = false;
+		}
 
 	}
 

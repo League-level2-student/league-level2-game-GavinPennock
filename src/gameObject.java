@@ -8,7 +8,7 @@ public class gameObject {
 	int speed = 0;
 	boolean isActive = true;
 	Rectangle collisionBox;
-	boolean isColliding = true;
+	boolean isColliding = false;
 
 	gameObject(int X, int Y, int Width1, int Height1) {
 		x = X;
@@ -20,10 +20,9 @@ public class gameObject {
 
 	public void setColliding(boolean b) {
 		isColliding = b;
-		
 	}
 
 	public void update() {
-
+		collisionBox.setBounds(x,y,width,height);
 	}
 }

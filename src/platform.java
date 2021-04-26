@@ -13,7 +13,8 @@ public class platform extends gameObject {
 	}
 
 	public void update() {
-		y+=speed;
 		super.update();
+		y+=speed;
+		
 	}
 }
