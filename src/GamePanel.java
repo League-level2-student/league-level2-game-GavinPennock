@@ -34,12 +34,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void startGame() {
-		platformSpawn = new Timer(2000, objectmanager);
+		platformSpawn = new Timer(1200, objectmanager);
 		platformSpawn.start();
 	}
 
 	public void updateGameState() {
 		objectmanager.update();
+		if(character.Z<-5) {
+			currentState=MENU;
+		}
 	}
 
 	public void drawMenuState(Graphics g) {

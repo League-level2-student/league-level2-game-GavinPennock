@@ -24,18 +24,13 @@ public class character extends gameObject {
 		g.fillRect(x, y, width, height);
 	}
 
-	public void jump() {
-		isJumping = true;
-
-	}
-
 	@Override
 	public void update() {
 		super.update();
-		//if (!isColliding && isJumping == false) {
-		//	Z--;
-		
-		//}
+		// if (!isColliding && isJumping == false) {
+		// Z--;
+
+		// }
 	}
 
 	public void move() {
@@ -46,27 +41,27 @@ public class character extends gameObject {
 			x -= speed;
 		}
 		if (isJumping) {
-				if (height == 70 && !isFalling) {
-					isFalling = true;
-					isJumping = false;
-				}
-				if (height >= defaultHeight && !isFalling) {
-					isFalling = false;
-					height++;
-					width++;
-					y -= 2;
-					Z++;
-					System.out.println(height + " " + width + " " + y);
-				}
+	
+	if (height >= 70 && !isFalling) {
+				isFalling = true;
+				isJumping = false;
+			}
+			if (height >= defaultHeight && !isFalling) {
+				isFalling = false;
+				height++;
+				width++;
+				y -= 2;
+				Z++;
+				System.out.println(height + " " + width + " " + y);
+			}
 		}
-				if (isFalling) {
-					height--;
-					width--;
-					Z--;
-					y += 2;
-					System.out.println(height + " " + width + " " + y);
-				
-				}
-	}
-	}
+		if (isFalling) {
+			height--;
+			width--;
+			Z--;
+			y += 2;
+			System.out.println(height + " " + width + " " + y);
 
+		}
+	}
+}

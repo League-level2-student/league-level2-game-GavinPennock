@@ -26,8 +26,9 @@ public class objectManager implements ActionListener{
 			character.isColliding=true;
 			fall=false;
 		}
-		
+		if(character.height<=50) {
 		character.isFalling=fall;
+		}
 	}
 	public void addPlatform() {
 		platforms.add(new platform(random.nextInt(SkyJump.WIDTH-100),100,100,100));

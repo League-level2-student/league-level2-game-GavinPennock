@@ -4,7 +4,7 @@ import java.awt.Graphics;
 public class platform extends gameObject {
 	platform(int X, int Y, int Width1, int Height1) {
 		super(X, Y, Width1, Height1);
-		speed = 1;
+		speed = 3;
 	}
 
 	public void draw(Graphics g) {
