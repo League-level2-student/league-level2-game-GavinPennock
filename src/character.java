@@ -52,7 +52,7 @@ public class character extends gameObject {
 				width++;
 				y -= 2;
 				Z++;
-				System.out.println(height + " " + width + " " + y);
+				
 			}
 		}
 		if (isFalling) {
@@ -60,7 +60,7 @@ public class character extends gameObject {
 			width--;
 			Z--;
 			y += 2;
-			System.out.println(height + " " + width + " " + y);
+			
 
 		}
 	}
