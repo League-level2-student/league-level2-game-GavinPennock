@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -19,12 +21,26 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font playFont;
 	Font heightFont;
 	Timer frameDraw;
+	public static BufferedImage image;
+	public static boolean needImage = true;
+	public static boolean gotImage = false;
 	
 	character character = new character(250, SkyJump.HEIGHT / 2, 50, 50);
 	objectManager objectmanager = new objectManager(character);
 	 
 	   
-
+	void loadImage(String imageFile) {
+	    if (needImage) {
+	        try {
+	            image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+		    gotImage = true;
+	        } catch (Exception e) {
+	            
+	        }
+	        needImage = false;
+	    }
+	}
+	
 	GamePanel() {
 		instructionFont = new Font("Arial", Font.PLAIN, 16);
 		titleFont = new Font("Arial", Font.PLAIN, 48);
@@ -32,6 +48,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		heightFont = new Font("Arial", Font.PLAIN, 16);
 		frameDraw = new Timer(1000 / 60, this);
 		frameDraw.start();
+		if (needImage) {
+			loadImage("clouds.jpg");
+		}
 	}
 
 	public void updateMenuState() {
@@ -53,9 +72,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void drawMenuState(Graphics g) {
-		// background
-		g.setColor(Color.BLUE);
-		g.fillRect(0, 0, SkyJump.WIDTH, SkyJump.HEIGHT);
+		if (gotImage) {
+			g.drawImage(image, 0, 0, SkyJump.WIDTH, SkyJump.HEIGHT - 125, null);
+		} else {
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, SkyJump.WIDTH, SkyJump.HEIGHT);
+		}
+	
 		// title
 		g.setFont(titleFont);
 		g.setColor(Color.YELLOW);
@@ -72,9 +95,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void drawGameState(Graphics g) {
-		g.setColor(Color.BLUE);
-		g.fillRect(0, 0, SkyJump.WIDTH, SkyJump.HEIGHT);
+		if (gotImage) {
+			g.drawImage(image, 0, 0, SkyJump.WIDTH, SkyJump.HEIGHT - 125, null);
+		} else {
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, SkyJump.WIDTH, SkyJump.HEIGHT);
+		}
 		objectmanager.draw(g);
+	
 		// height text
 		g.setFont(heightFont);
 		g.setColor(Color.WHITE);

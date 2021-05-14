@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
 public class objectManager implements ActionListener{
@@ -18,6 +19,8 @@ public class objectManager implements ActionListener{
 		character = character1;
 	}
 	
+	
+		
 	public void checkCollision() {
 		for(enemy enemy : enemies) {
 			if(enemy.collisionBox.intersects(character.collisionBox)) {
