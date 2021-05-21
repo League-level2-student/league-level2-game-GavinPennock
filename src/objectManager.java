@@ -23,7 +23,7 @@ public class objectManager implements ActionListener{
 		
 	public void checkCollision() {
 		for(enemy enemy : enemies) {
-			if(enemy.collisionBox.intersects(character.collisionBox)) {
+			if(enemy.collisionBox.intersects(character.collisionBox)&&character.isJumping==false&&character.isFalling==false) {
 				enemy.isActive=false;
 				character.isActive=false;
 			}

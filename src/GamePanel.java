@@ -103,10 +103,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		objectmanager.draw(g);
 	
-		// height text
-		g.setFont(heightFont);
-		g.setColor(Color.WHITE);
-		g.drawString("DISTANCE ____", 350, 50);
+
 		// character draw
 
 	}
